@@ -1,0 +1,46 @@
+<section class="container">
+    <form class="formulario" (ngSubmit)="saveTransacoes()">
+        <input class="inputs" [(ngModel)]="transacao.categoria" name="categoria" placeholder="Categoria" required />
+        <input class="inputs" type="number" [(ngModel)]="transacao.valor" name="valor" placeholder="Valor" required />
+        <select class="selects" [(ngModel)]="transacao.tipo" name="tipo" value="" required>
+          <option value="receita">Receita</option>
+          <option value="despesa">Despesa</option>
+        </select>
+        
+        <button class="button" type="submit">{{ transacao.id ? 'Atualizar' : 'Salvar' }}</button>
+      </form>
+
+
+      <div class="button-acoes">
+        <button class="button-receita" (click)="filtrarTransacao('receita')">Filtrar Receitas</button>
+        <button class="button-despesa" (click)="filtrarTransacao('despesa')">Filtrar Despesas</button>
+      </div>
+
+    
+      <table [ngClass]="{'tabela-receita': tipoSelecionado === 'receita', 
+                  'tabela-despesa': tipoSelecionado === 'despesa'}">
+        <thead>
+          <tr>
+            <th>Valor</th>
+            <th>Tipo</th>
+            <th>Categoria</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let trans of filtrarTransacoes">
+            <td>{{ trans.valor }}</td>
+            <td>{{ trans.tipo }}</td>
+            <td>{{ trans.categoria }}</td>
+            <td>
+              <button class="button-receita" (click)="editTransacao(trans)">Editar</button>
+              <button class="button-despesa" (click)="deleteTransacao(trans.id)">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  
+
+  
